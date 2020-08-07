@@ -228,6 +228,7 @@ convolutional_layer parse_convolutional(list *options, size_params params)
     layer.angle = option_find_float_quiet(options, "angle", 15);
     layer.grad_centr = option_find_int_quiet(options, "grad_centr", 0);
     layer.reverse = option_find_float_quiet(options, "reverse", 0);
+    layer.temperature = option_find_float_quiet(options, "temperature", 1);
 
     if(params.net.adam){
         layer.B1 = params.net.B1;
@@ -1082,6 +1083,9 @@ void parse_net_options(list *options, network *net)
 {
     net->max_batches = option_find_int(options, "max_batches", 0);
     net->batch = option_find_int(options, "batch",1);
+    net->max_batchsize = option_find_int_quiet(options, "max_batchsize", net->batch);
+    net->round = option_find_int(options, "round",1);
+    net->nwin = option_find_int(options, "nwin",5);
     net->learning_rate = option_find_float(options, "learning_rate", .001);
     net->learning_rate_min = option_find_float_quiet(options, "learning_rate_min", .00001);
     net->batches_per_cycle = option_find_int_quiet(options, "sgdr_cycle", net->max_batches);

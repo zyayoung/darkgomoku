@@ -130,7 +130,7 @@ int get_sequence_value(network net)
 
 float get_current_rate(network net)
 {
-    int batch_num = get_current_batch(net);
+    int batch_num = get_current_iteration(net);
     int i;
     float rate;
     if (batch_num < net.burn_in) return net.learning_rate * pow((float)batch_num / net.burn_in, net.power);
@@ -474,9 +474,7 @@ int recalculate_workspace_size(network *net)
 
 #ifdef GPU
     if (gpu_index >= 0) {
-        printf("\n try to allocate additional workspace_size = %1.2f MB \n", (float)workspace_size / 1000000);
         net->workspace = cuda_make_array(0, workspace_size / sizeof(float) + 1);
-        printf(" CUDA allocate done! \n");
     }
     else {
         free(net->workspace);
@@ -492,6 +490,7 @@ int recalculate_workspace_size(network *net)
 
 void set_batch_network(network *net, int b)
 {
+    if (net->batch == b) return;
     net->batch = b;
     int i;
     for(i = 0; i < net->n; ++i){

@@ -23,6 +23,7 @@ void const_cpu(int N, float ALPHA, float *X, int INCX);
 void constrain_ongpu(int N, float ALPHA, float * X, int INCX);
 void constrain_min_max_ongpu(int N, float MIN, float MAX, float * X, int INCX);
 void pow_cpu(int N, float ALPHA, float *X, int INCX, float *Y, int INCY);
+void pow_const_cpu(int N, float POW, float *X, int INCX);
 void mul_cpu(int N, float *X, int INCX, float *Y, int INCY);
 
 void axpy_cpu(int N, float ALPHA, float *X, int INCX, float *Y, int INCY);
@@ -81,6 +82,7 @@ void mask_gpu_new_api(int N, float * X, float mask_num, float * mask, float val)
 void mask_ongpu(int N, float * X, float mask_num, float * mask);
 void const_ongpu(int N, float ALPHA, float *X, int INCX);
 void pow_ongpu(int N, float ALPHA, float *X, int INCX, float *Y, int INCY);
+void pow_const_ongpu(int N, float POW, float *X, int INCX);
 void mul_ongpu(int N, float *X, int INCX, float *Y, int INCY);
 void fill_ongpu(int N, float ALPHA, float * X, int INCX);
 void gradient_centralization_gpu(int w, int h, int c, int f, float *in);

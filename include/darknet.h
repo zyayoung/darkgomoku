@@ -664,6 +664,9 @@ typedef enum {
 typedef struct network {
     int n;
     int batch;
+    int max_batchsize; // maximum batchsize fed into network
+    int round;         // number of rounds per batch
+    int nwin;          // win when n in a row
     uint64_t *seen;
     int *cur_iteration;
     float loss_scale;
@@ -778,6 +781,7 @@ typedef struct network {
     int optimized_memory;
     int dynamic_minibatch;
     size_t workspace_size_limit;
+    int record_next;
 } network;
 
 // network.h

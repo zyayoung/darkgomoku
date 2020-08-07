@@ -466,6 +466,12 @@ __global__ void pow_kernel(int N, float ALPHA, float *X, int INCX, float *Y, int
     if(i < N) Y[i*INCY] = powf(X[i*INCX], ALPHA);
 }
 
+__global__ void pow_const_kernel(int N, float POW, float *X, int INCX)
+{
+    int i = (blockIdx.x + blockIdx.y*gridDim.x) * blockDim.x + threadIdx.x;
+    if(i < N) X[i*INCX] = powf(X[i*INCX], POW);
+}
+
 __global__ void const_kernel(int N, float ALPHA, float *X, int INCX)
 {
     int i = (blockIdx.x + blockIdx.y*gridDim.x) * blockDim.x + threadIdx.x;
@@ -732,6 +738,12 @@ extern "C" void axpy_ongpu(int N, float ALPHA, float * X, int INCX, float * Y, i
 extern "C" void pow_ongpu(int N, float ALPHA, float * X, int INCX, float * Y, int INCY)
 {
     pow_kernel<<<cuda_gridsize(N), BLOCK, 0, get_cuda_stream() >>>(N, ALPHA, X, INCX, Y, INCY);
+    CHECK_CUDA(cudaPeekAtLastError());
+}
+
+extern "C" void pow_const_ongpu(int N, float POW, float * X, int INCX)
+{
+    pow_const_kernel<<<cuda_gridsize(N), BLOCK, 0, get_cuda_stream() >>>(N, POW, X, INCX);
     CHECK_CUDA(cudaPeekAtLastError());
 }
 
