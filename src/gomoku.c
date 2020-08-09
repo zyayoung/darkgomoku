@@ -350,7 +350,7 @@ void train_single_iter(network *net) {
         tb_record("ndraw", (float)ndraw / net->round, *net->cur_iteration);
         tb_record("avg_step", (float)game->memory_pos / net->round,
                   *net->cur_iteration);
-        tb_record("loss", loss_sum, *net->cur_iteration);
+        tb_record("loss", loss_sum / game->memory_pos, *net->cur_iteration);
         printf("%8d, %f loss, %f lr\n", *net->cur_iteration, loss_sum,
                net->learning_rate);
         net->record_next = 0;
