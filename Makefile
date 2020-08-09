@@ -187,7 +187,7 @@ setchmod:
 .PHONY: clean
 
 go: all
-	./darknet gomoku train cfg/go.cfg
+	./darknet gomoku train cfg/gomoku.cfg
 
 clean:
 	rm -rf $(OBJS) $(EXEC) $(LIBNAMESO) $(APPNAMESO)

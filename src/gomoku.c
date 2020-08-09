@@ -386,8 +386,8 @@ void train_gomoku(char *cfgfile, char *weightfile, int *gpus, int ngpus) {
     // *nets->cur_iteration = 0;
     cuda_set_device(gpus[0]);
     network net_ref =
-        parse_network_cfg_custom("cfg/go_ref.cfg", nets->round, 0);
-    load_weights(&net_ref, "backup/go_ref.w");
+        parse_network_cfg_custom("cfg/gomoku_ref.cfg", nets->round, 0);
+    load_weights(&net_ref, "backup/gomoku_ref.w");
     printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", nets->learning_rate,
            nets->momentum, nets->decay);
 
