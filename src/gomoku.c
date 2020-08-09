@@ -340,8 +340,11 @@ void train_single_iter(network *net) {
         cuda_free(state.input);
     }
     (*net->seen) += game->memory_pos;
-
+    
+    int batch_latent = net->batch;
+    net->batch = game->memory_pos;
     update_network_gpu(*net);
+    net->batch = batch_latent;
 
     if (net->record_next) {
         first_win_rate =
